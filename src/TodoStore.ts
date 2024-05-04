@@ -25,7 +25,7 @@ class Todo {
   }
 }
 
-export default class TodoStore {
+class TodoStore {
   todos: Todo[] = [];
 
   constructor() {
@@ -53,3 +53,5 @@ export default class TodoStore {
     this.todos.splice(this.todos.indexOf(todo), 1);
   }
 }
+
+export { Todo, TodoStore };
