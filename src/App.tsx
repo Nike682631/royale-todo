@@ -1,17 +1,11 @@
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import { useEffect } from 'react';
 import TodoStore from './TodoStore.ts';
 
 const todoStore = new TodoStore();
+todoStore.loadTodos(); //Loads todos
 
 function App() {
-  useEffect(() => {
-    console.log('I was called');
-    todoStore.loadTodos();
-    console.log(toJS(todoStore.todos));
-  }, [todoStore.todos]);
-
   return (
     <div>
       {toJS(todoStore.todos).map((todo) => (
