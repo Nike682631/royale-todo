@@ -1,7 +1,7 @@
 {
   "name": "@nkzw/vite-ts-react-tailwind",
   "version": "0.0.1",
-  "author": "Christoph Nakazawa <christoph.pojer@gmail.com>",
+  "author": "Nik <nikunjgoyal31@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/cpojer/vite-ts-react-tailwind.git"
@@ -12,12 +12,15 @@
     "pnpm": ">=7.1.0"
   },
   "dependencies": {
+    "mobx": "^6.12.3",
+    "mobx-react": "^9.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint-plugin-mobx": "^0.0.9",
     "@ianvs/prettier-plugin-sort-imports": "^4.1.1",
-    "@nkzw/eslint-config": "^1.14.0",
     "@swc/core": "^1.4.2",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.61",
