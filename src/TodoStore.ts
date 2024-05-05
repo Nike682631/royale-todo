@@ -43,10 +43,8 @@ class TodoStore {
     }
   }
 
-  createTodo(description: string) {
-    const todo = new Todo(description);
-    this.todos.push(todo);
-    return todo;
+  createTodo(todo: Todo) {
+    this.todos.unshift(todo);
   }
 
   removeTodo(todo: Todo) {
