@@ -31,21 +31,48 @@ function App() {
     colors: ['#041E43', '#1471BF', '#5BB4DC', '#FC027B', '#66D805'],
   };
 
+  const addTodo = () => {
+    if (description === '') {
+      setOpen(false);
+      alert('Todo description cannot be empty');
+      return;
+    }
+    todoStore.createTodo(new Todo(description));
+    setDescription('');
+    setIsExploding(true);
+    setTimeout(() => {
+      setIsExploding(false);
+    }, 2000);
+    setOpen(false);
+  };
+
+  const editTodo = (index: number, todo: Todo) => {
+    if (description === '') {
+      setOpen(false);
+      alert('Todo description cannot be empty');
+      return;
+    }
+    setIsEditMode({ index, isEditing: false });
+    todo.editDescription(description);
+    setDescription('');
+  };
+
   return (
     <div className="flex flex-col gap-3">
       {/* <ConfettiEffect /> */}
       {isExploding && <ConfettiExplosion {...largeProps} />}
       <div
-        className={`transition-opacity transition-transform ${open ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'} fixed inset-0 z-20 flex min-h-[20vh] w-[40vw] justify-center gap-4 self-center justify-self-center rounded-2xl border bg-slate-100 p-5 drop-shadow-md`}
+        className={`transition-opacity transition-transform ${open ? 'translate-y-0 opacity-100' : 'pointer-events-none z-[-10] -translate-y-full opacity-0'} fixed inset-0 z-20 flex min-h-[20vh] w-[40vw] justify-center gap-4 self-center justify-self-center rounded-2xl border bg-slate-100 p-5 drop-shadow-md`}
         id="add-todo-modal"
       >
         <div className="fixed inset-0 z-10 backdrop-brightness-50"></div>
         <div
-          className={`transition-opacity ${open ? 'opacity-100' : 'opacity-0'} absolute inset-0 z-20 flex min-h-[20vh] w-[40vw] justify-center gap-4 self-center justify-self-center rounded-2xl border bg-slate-100 p-5 drop-shadow-md`}
+          className={`transition-opacity ${open ? 'opacity-100' : 'opacity-0'} absolute inset-0 z-20 flex min-h-[20vh] w-[40vw] min-w-80 justify-center gap-4 self-center justify-self-center rounded-2xl border bg-slate-100 p-5 drop-shadow-md`}
         >
           <input
             className="mx-4 h-10 w-full rounded-xl border-2 border-teal-400 p-2 text-black"
             value={description}
+            placeholder="Enter todo description"
             onChange={(e) => setDescription(e.target.value)}
           />
           <div className="absolute bottom-2 right-2 flex items-center justify-center gap-4">
@@ -60,15 +87,7 @@ function App() {
             </button>
             <button
               className="flex w-24 items-center justify-center rounded-2xl bg-emerald-600 p-2 drop-shadow-md"
-              onClick={() => {
-                todoStore.createTodo(new Todo(description));
-                setDescription('');
-                setIsExploding(true);
-                setTimeout(() => {
-                  setIsExploding(false);
-                }, 2000);
-                setOpen(false);
-              }}
+              onClick={() => addTodo()}
             >
               Add todo
             </button>
@@ -77,7 +96,7 @@ function App() {
       </div>
       <div className="flex w-full justify-center">
         <button
-          className="my-2 flex w-8/12 justify-center rounded-3xl border border-gray-200 bg-emerald-600 p-4 shadow-md dark:border-neutral-600"
+          className="my-2 flex w-8/12 justify-center rounded-3xl border border-gray-200 bg-emerald-600 p-4 pr-14 shadow-md dark:border-neutral-600"
           onClick={() => setOpen(true)}
         >
           Create todo
@@ -113,11 +132,7 @@ function App() {
               <div className="flex items-center">
                 <button
                   className={`mr-4 flex h-3 w-3 items-center`}
-                  onClick={() => {
-                    setIsEditMode({ index, isEditing: false });
-                    todo.editDescription(description);
-                    setDescription('');
-                  }}
+                  onClick={() => editTodo(index, todo)}
                 >
                   <FaCheck className="text-lime-700	" />
                 </button>
