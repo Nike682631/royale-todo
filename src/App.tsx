@@ -61,11 +61,13 @@ function App() {
     <div className="flex flex-col items-center gap-3">
       {/* <ConfettiEffect /> */}
       {isExploding && <ConfettiExplosion {...largeProps} />}
+      {open && (
+        <div className="fixed inset-0 z-10 backdrop-brightness-50"></div>
+      )}
       <div
         className={`transition-all transition-opacity transition-transform duration-500 ease-in-out ${open ? 'translate-y-0 opacity-100 ' : 'pointer-events-none z-[-10] -translate-y-full rotate-90 opacity-0'} fixed inset-0 z-20 flex min-h-[20vh] w-[40vw] justify-center gap-4 self-center justify-self-center rounded-2xl border bg-slate-100 p-5 drop-shadow-md`}
         id="add-todo-modal"
       >
-        <div className="fixed inset-0 z-10 backdrop-brightness-50"></div>
         <div
           className={`transition-opacity ${open ? 'opacity-100' : 'opacity-0'} absolute inset-0 z-20 flex min-h-[20vh] w-[40vw] min-w-80 justify-center gap-4 self-center justify-self-center rounded-2xl border bg-slate-100 p-5 drop-shadow-md`}
         >
