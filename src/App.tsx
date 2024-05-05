@@ -158,7 +158,10 @@ function App() {
             )}
             <button
               className={`mr-4 flex h-6 w-6 items-center`}
-              onClick={() => todoStore.removeTodo(todo)}
+              onClick={() => {
+                if (editMode.isEditing) editMode.isEditing = false;
+                todoStore.removeTodo(todo);
+              }}
             >
               <FaTrash className="text-red-700	" />
             </button>
